@@ -1,65 +1,81 @@
 # Instagram Portfolio Setup
 
-The portfolio section auto-fetches the latest 12 Instagram posts using the Instagram Basic Display API. Follow these steps once to connect Anneika's account.
+The portfolio section auto-fetches the latest 12 Instagram posts. Follow these steps once to connect Anneika's account.
 
-## Steps
+## Prerequisites
 
-### 1. Create a Meta Developer App
-1. Go to [developers.facebook.com](https://developers.facebook.com) and log in with a Facebook account.
-2. Click **My Apps → Create App**.
-3. Choose **"Other"** as the use case, then **"Consumer"** as the type.
-4. Name the app (e.g. `AnneikaJC Portfolio`) and click **Create App**.
+Anneika's Instagram must be a **Professional account** (Creator or Business).
 
-### 2. Add Instagram Basic Display
-1. Inside the app dashboard, click **Add Products** and find **Instagram Basic Display**.
-2. Click **Set Up**.
-3. Under **Valid OAuth Redirect URIs**, add: `https://localhost/`
-4. Under **Deauthorize Callback URL**, add: `https://localhost/`
-5. Save changes.
+To switch: Instagram → **Settings → Account type and tools → Switch to Professional Account** → choose Creator.
 
-### 3. Add Anneika's Instagram as a Test User
-1. Go to **Roles → Test Users**.
-2. Click **Add Instagram Testers** and enter Anneika's Instagram username.
-3. Anneika must then accept the invite inside Instagram app → Settings → Apps and Websites → Tester Invites.
+Free, reversible, and does not change how the profile looks publicly.
 
-### 4. Generate an Access Token
-1. In the app dashboard, go to **Instagram Basic Display → User Token Generator**.
-2. Click **Generate Token** next to the test user.
-3. Log in as Anneika and grant permissions.
-4. Copy the short-lived token.
+---
 
-### 5. Exchange for a Long-Lived Token (60 days)
-Run this in your terminal (replace the placeholders):
+## Step 1 — Create the Meta Developer App
+
+1. Go to **[developers.facebook.com/apps/creation/](https://developers.facebook.com/apps/creation/)**
+2. Enter an app name (e.g. `AnneikaJC Portfolio`) and a contact email
+3. Under **"Add use cases"**, find the *Content management* category and select **"Manage messaging & content on Instagram"**
+4. Click **Next** and finish creating the app
+
+> Note: The old "Add Products" section no longer exists. The current Meta dashboard uses a **use cases** model instead.
+
+---
+
+## Step 2 — Add Anneika's Account
+
+1. Inside the app dashboard, find the **"Generate access tokens"** section
+2. Click **"Add account"**
+3. Click **Continue** — a popup opens for Anneika to log in with her Instagram credentials
+4. She approves the permissions and the token is generated automatically
+
+> The permission `instagram_business_basic` (read-only access to her profile and media) is added by default when selecting this use case.
+
+---
+
+## Step 3 — Copy the Token
+
+Copy the generated token. It is already long-lived (valid for 60 days).
+
+---
+
+## Step 4 — Add to the Site
+
+**Locally** — create a `.env.local` file in the project root:
+
+```
+INSTAGRAM_ACCESS_TOKEN=paste_your_token_here
+```
+
+**Production (Vercel)** — go to your project → **Settings → Environment Variables** → add:
+- Key: `INSTAGRAM_ACCESS_TOKEN`
+- Value: the token
+
+---
+
+## Step 5 — Refresh Every ~50 Days
+
+Long-lived tokens expire after 60 days. Refresh before they expire with:
 
 ```bash
-curl -X GET \
-  "https://graph.instagram.com/access_token?grant_type=ig_exchange_token&client_secret=YOUR_APP_SECRET&access_token=SHORT_LIVED_TOKEN"
+curl "https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=YOUR_TOKEN"
 ```
 
-Copy the `access_token` from the response.
+Set a calendar reminder at day 50, or ask to have a Vercel Cron Function added to auto-refresh it.
 
-### 6. Add to Environment Variables
-Create a `.env.local` file in the project root:
+---
 
-```
-INSTAGRAM_ACCESS_TOKEN=your_long_lived_token_here
-```
+## If You Hit a Business Verification Wall
 
-For production (Vercel), add `INSTAGRAM_ACCESS_TOKEN` as an environment variable in the Vercel dashboard under **Project → Settings → Environment Variables**.
+Meta may ask you to verify a business entity before publishing the app. You can avoid this by keeping the app in **Development Mode** (the default) and adding Anneika as a **Tester or Admin** on the app. In development mode, tokens work immediately for any account added to the app — no verification required.
 
-### 7. Refresh the Token (every ~60 days)
-Long-lived tokens expire after 60 days. To refresh:
-
-```bash
-curl -X GET \
-  "https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=YOUR_LONG_LIVED_TOKEN"
-```
-
-Or automate this with a cron job / Vercel Cron Function.
+To add a tester: App dashboard → **Roles → Testers → Add** → enter her Facebook account.
 
 ---
 
 ## Token Security
-- Never commit `.env.local` to git (it is already in `.gitignore`).
-- Only add the token to `.env.example` as a placeholder.
-- Rotate immediately if accidentally exposed.
+
+- Never commit `.env.local` to git (already covered by `.gitignore`)
+- Only `.env.example` (the placeholder file) is committed
+- Rotate the token immediately if it is ever accidentally exposed
