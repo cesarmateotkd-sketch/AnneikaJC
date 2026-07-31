@@ -1,33 +1,63 @@
+import Image from "next/image";
+
 export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex flex-col items-center justify-center text-center px-6 bg-[#fafaf8]"
+      className="relative min-h-screen flex items-end overflow-hidden"
     >
-      <p className="font-[family-name:var(--font-jost)] text-xs tracking-[0.3em] uppercase text-neutral-400 mb-6">
-        Model &amp; Creative
-      </p>
+      {/* Full-bleed background image */}
+      <div className="absolute inset-0">
+        <Image
+          src="/images/hero.jpg"
+          alt="Anneika JC"
+          fill
+          priority
+          className="object-cover object-top"
+          sizes="100vw"
+        />
+        {/* Gradient overlay — heavier at bottom for text legibility */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0c0c0c] via-[#0c0c0c]/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0c0c0c]/60 via-transparent to-transparent" />
+      </div>
 
-      <h1 className="font-[family-name:var(--font-cormorant)] text-6xl md:text-8xl font-light tracking-wide text-neutral-900 leading-none">
-        Anneika
-        <br />
-        <span className="italic font-light">JC</span>
-      </h1>
+      {/* Text — bottom-left anchored */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-10 pb-20 w-full">
+        <div className="max-w-xl fade-up">
+          <p className="font-[family-name:var(--font-jost)] text-[10px] tracking-[0.4em] uppercase text-[#c4622d] mb-5">
+            Model &bull; Coach &bull; Creative
+          </p>
+          <h1 className="font-[family-name:var(--font-cormorant)] text-7xl md:text-9xl font-light leading-[0.9] text-[#f0ebe0] mb-8">
+            Anneika
+            <br />
+            <em className="italic text-[#c4622d]">JC</em>
+          </h1>
+          <p className="font-[family-name:var(--font-jost)] text-xs tracking-[0.25em] uppercase text-[#8a8478] mb-10">
+            Fashion &bull; Editorial &bull; Runway &bull; Commercial
+          </p>
+          <div className="flex flex-wrap gap-4">
+            <a
+              href="#portfolio"
+              className="font-[family-name:var(--font-jost)] text-[10px] tracking-[0.3em] uppercase bg-[#c4622d] text-white px-8 py-3.5 hover:bg-[#e07840] transition-colors duration-300"
+            >
+              View Portfolio
+            </a>
+            <a
+              href="#coaching"
+              className="font-[family-name:var(--font-jost)] text-[10px] tracking-[0.3em] uppercase border border-[rgba(240,235,224,0.3)] text-[#f0ebe0] px-8 py-3.5 hover:border-[#c4622d] hover:text-[#c4622d] transition-all duration-300"
+            >
+              Book a Session
+            </a>
+          </div>
+        </div>
+      </div>
 
-      <p className="mt-8 font-[family-name:var(--font-jost)] text-sm tracking-widest text-neutral-500 uppercase">
-        Fashion &bull; Editorial &bull; Commercial
-      </p>
-
-      <a
-        href="#portfolio"
-        className="mt-16 font-[family-name:var(--font-jost)] text-xs tracking-[0.25em] uppercase border border-neutral-300 text-neutral-600 px-8 py-3 hover:bg-neutral-900 hover:text-white hover:border-neutral-900 transition-all duration-300"
-      >
-        View Portfolio
-      </a>
-
-      {/* Scroll indicator */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce">
-        <div className="w-px h-10 bg-neutral-300" />
+      {/* Scroll line */}
+      <div className="absolute bottom-8 right-10 hidden md:flex flex-col items-center gap-3">
+        <span className="font-[family-name:var(--font-jost)] text-[9px] tracking-[0.3em] uppercase text-[#8a8478] [writing-mode:vertical-rl]">
+          Scroll
+        </span>
+        <div className="w-px h-16 bg-gradient-to-b from-[#8a8478] to-transparent" />
       </div>
     </section>
   );
