@@ -78,7 +78,7 @@ export default function Coaching() {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <p className="font-[family-name:var(--font-jost)] text-[10px] tracking-[0.4em] uppercase text-[#c4622d] mb-16">
-          03 — Coaching
+          04 — Coaching
         </p>
 
         <div className="grid md:grid-cols-2 gap-12 items-end mb-20">

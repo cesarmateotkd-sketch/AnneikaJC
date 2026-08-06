@@ -5,7 +5,7 @@ export default function Contact() {
     <section id="contact" className="py-32 px-6 md:px-10 border-t border-[rgba(240,235,224,0.08)]">
       <div className="max-w-7xl mx-auto">
         <p className="font-[family-name:var(--font-jost)] text-[10px] tracking-[0.4em] uppercase text-[#c4622d] mb-16">
-          04 — Contact
+          05 — Contact
         </p>
 
         <div className="grid md:grid-cols-2 gap-20 items-start">

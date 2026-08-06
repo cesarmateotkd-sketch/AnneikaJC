@@ -1,4 +1,5 @@
-import Image from "next/image";
+const VIDEO_URL =
+  "https://res.cloudinary.com/zlsmzpdg/video/upload/q_auto/copy_04ECC168-4B41-4C18-B6E0-651A7B69CFBB_yowu1z.mp4";
 
 export default function Hero() {
   return (
@@ -6,16 +7,18 @@ export default function Hero() {
       id="hero"
       className="relative min-h-screen flex items-end overflow-hidden"
     >
-      {/* Full-bleed background image */}
+      {/* Full-bleed background video */}
       <div className="absolute inset-0">
-        <Image
-          src="/images/hero.jpg"
-          alt="Anneika JC"
-          fill
-          priority
-          className="object-cover object-top"
-          sizes="100vw"
-        />
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster="/images/hero.jpg"
+          className="absolute inset-0 w-full h-full object-cover object-top"
+        >
+          <source src={VIDEO_URL} type="video/mp4" />
+        </video>
         {/* Gradient overlay — heavier at bottom for text legibility */}
         <div className="absolute inset-0 bg-gradient-to-t from-[#0c0c0c] via-[#0c0c0c]/40 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#0c0c0c]/60 via-transparent to-transparent" />
