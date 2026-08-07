@@ -1,6 +1,8 @@
 const VIDEO_URL =
   "https://res.cloudinary.com/zlsmzpdg/video/upload/q_auto/copy_04ECC168-4B41-4C18-B6E0-651A7B69CFBB_yowu1z.mp4";
 
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 export default function Hero() {
   return (
     <section
@@ -14,7 +16,7 @@ export default function Hero() {
           muted
           loop
           playsInline
-          poster="/images/hero.jpg"
+          poster={`${BASE}/images/hero.jpg`}
           className="absolute inset-0 w-full h-full object-cover object-top"
         >
           <source src={VIDEO_URL} type="video/mp4" />
