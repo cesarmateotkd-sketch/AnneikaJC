@@ -1,11 +1,13 @@
 export default function About() {
   const stats = [
     ["Experience", "10+ Years"],
-    ["Specialties", "Editorial, Runway, Commercial"],
-    ["Height", "5′ 10″"],
-    ["Bust / Waist / Hips", "32″ / 24″ / 34″"],
-    ["Dress Size", "US 2 — EU 34"],
-    ["Shoe", "US 9 — EU 40"],
+    ["Specialties", "Editorial, Runway, Commercial, UGC"],
+    ["Height", "5′ 9″"],
+    ["Bust", "34″"],
+    ["Waist", "24″"],
+    ["Hips", "35″"],
+    ["Size", "Small"],
+    ["Shoe", "US 7.5"],
     ["Hair", "Black"],
     ["Eyes", "Dark Brown"],
   ];
@@ -26,21 +28,28 @@ export default function About() {
             <em className="italic text-[#c4622d]">Presence</em>
           </h2>
           <p className="font-[family-name:var(--font-jost)] text-sm font-light text-[#8a8478] leading-relaxed mb-5">
-            Anneika JC is a professional model with over ten years of experience
-            across fashion editorial, runway, and commercial work. Her portfolio
-            spans magazine spreads, brand campaigns, and live runway productions
-            across the US and internationally.
+            Anneika JC is a professional model and creative director with over
+            ten years in the industry. Her career spans fashion editorials,
+            runway productions, commercial campaigns, and music video work —
+            with features in <em className="text-[#f0ebe0]">Vogue</em> and{" "}
+            <em className="text-[#f0ebe0]">Glamour</em> magazine.
+          </p>
+          <p className="font-[family-name:var(--font-jost)] text-sm font-light text-[#8a8478] leading-relaxed mb-5">
+            She has worked with household names including{" "}
+            <em className="text-[#f0ebe0]">Gold Bond</em> and{" "}
+            <em className="text-[#f0ebe0]">Garnier</em>, and continues to
+            deliver consistent UGC content for brands across beauty, fashion,
+            and lifestyle.
           </p>
           <p className="font-[family-name:var(--font-jost)] text-sm font-light text-[#8a8478] leading-relaxed mb-10">
-            Beyond the lens, she brings that same expertise into the studio as a
-            modeling coach — helping emerging talent build confidence, refine
-            their technique, and navigate the industry with clarity.
+            Behind the scenes she operates as a creative director — bringing
+            vision and precision to every project she touches.
           </p>
           <a
-            href="#coaching"
+            href="#portfolio"
             className="inline-block font-[family-name:var(--font-jost)] text-[10px] tracking-[0.3em] uppercase text-[#c4622d] border-b border-[#c4622d] pb-0.5 hover:text-[#e07840] hover:border-[#e07840] transition-colors"
           >
-            Explore Coaching →
+            View Portfolio →
           </a>
         </div>
 

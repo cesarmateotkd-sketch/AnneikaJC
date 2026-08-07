@@ -2,19 +2,20 @@
 
 import { useState, useRef } from "react";
 
-const COACHING_PACKAGES = [
-  "Single Session — 60 min ($175)",
-  "Single Session — 90 min ($250)",
-  "Starter Pack — 4 sessions ($650)",
-  "Transform Pack — 8 sessions ($1,200)",
-  "Elite Program — 12 sessions ($1,800)",
-  "Not sure yet — let's talk",
-];
-
 type Status = "idle" | "loading" | "success" | "error";
 
+const PROJECT_TYPES = [
+  "Editorial / Photoshoot",
+  "Runway / Fashion Show",
+  "Brand Campaign",
+  "Lookbook",
+  "Commercial / TV",
+  "UGC Content",
+  "Event Appearance",
+  "Other",
+];
+
 export default function BookingForm() {
-  const [type, setType] = useState<"modeling" | "coaching">("modeling");
   const [status, setStatus] = useState<Status>("idle");
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -29,7 +30,6 @@ export default function BookingForm() {
     const data = Object.fromEntries(new FormData(e.currentTarget));
 
     if (!endpoint) {
-      // No Formspree configured — simulate success so UI is testable
       await new Promise((r) => setTimeout(r, 900));
       setStatus("success");
       return;
@@ -57,7 +57,7 @@ export default function BookingForm() {
           Thank you — Anneika will be in touch within 48 hours.
         </p>
         <button
-          onClick={() => { setStatus("idle"); formRef.current?.reset(); setType("modeling"); }}
+          onClick={() => { setStatus("idle"); formRef.current?.reset(); }}
           className="mt-6 font-[family-name:var(--font-jost)] text-[10px] tracking-[0.3em] uppercase text-[#c4622d] border-b border-[#c4622d] pb-0.5"
         >
           Send another message
@@ -76,28 +76,6 @@ export default function BookingForm() {
 
   return (
     <form ref={formRef} onSubmit={handleSubmit} className="space-y-5">
-      {/* Booking type toggle */}
-      <div>
-        <p className={labelClass}>I&apos;m enquiring about</p>
-        <div className="grid grid-cols-2 gap-1">
-          {(["modeling", "coaching"] as const).map((t) => (
-            <button
-              key={t}
-              type="button"
-              onClick={() => setType(t)}
-              className={`py-3 font-[family-name:var(--font-jost)] text-[10px] tracking-[0.3em] uppercase transition-all duration-200 ${
-                type === t
-                  ? "bg-[#c4622d] text-white"
-                  : "border border-[rgba(240,235,224,0.12)] text-[#8a8478] hover:border-[#c4622d] hover:text-[#c4622d]"
-              }`}
-            >
-              {t === "modeling" ? "Modeling Work" : "Coaching"}
-            </button>
-          ))}
-        </div>
-        <input type="hidden" name="bookingType" value={type} />
-      </div>
-
       {/* Name + Email */}
       <div className="grid sm:grid-cols-2 gap-4">
         <div>
@@ -136,49 +114,24 @@ export default function BookingForm() {
         />
       </div>
 
-      {/* Coaching package — conditional */}
-      {type === "coaching" && (
-        <div>
-          <label htmlFor="package" className={labelClass}>Package *</label>
-          <select
-            id="package"
-            name="package"
-            required
-            defaultValue=""
-            className={`${inputClass} appearance-none cursor-pointer`}
-          >
-            <option value="" disabled className="bg-[#161616]">
-              Select a package
-            </option>
-            {COACHING_PACKAGES.map((p) => (
-              <option key={p} value={p} className="bg-[#161616]">
-                {p}
-              </option>
-            ))}
-          </select>
-        </div>
-      )}
-
-      {/* Modeling — project type */}
-      {type === "modeling" && (
-        <div>
-          <label htmlFor="projectType" className={labelClass}>Project Type *</label>
-          <select
-            id="projectType"
-            name="projectType"
-            required
-            defaultValue=""
-            className={`${inputClass} appearance-none cursor-pointer`}
-          >
-            <option value="" disabled className="bg-[#161616]">
-              Select project type
-            </option>
-            {["Editorial / Photoshoot", "Runway / Fashion Show", "Brand Campaign", "Lookbook", "Commercial / TV", "Event Appearance", "Other"].map((p) => (
-              <option key={p} value={p} className="bg-[#161616]">{p}</option>
-            ))}
-          </select>
-        </div>
-      )}
+      {/* Project type */}
+      <div>
+        <label htmlFor="projectType" className={labelClass}>Project Type *</label>
+        <select
+          id="projectType"
+          name="projectType"
+          required
+          defaultValue=""
+          className={`${inputClass} appearance-none cursor-pointer`}
+        >
+          <option value="" disabled className="bg-[#161616]">
+            Select project type
+          </option>
+          {PROJECT_TYPES.map((p) => (
+            <option key={p} value={p} className="bg-[#161616]">{p}</option>
+          ))}
+        </select>
+      </div>
 
       {/* Date */}
       <div>
@@ -200,11 +153,7 @@ export default function BookingForm() {
           name="message"
           required
           rows={4}
-          placeholder={
-            type === "coaching"
-              ? "Tell me about your experience level and goals..."
-              : "Tell me about your project, brand, or concept..."
-          }
+          placeholder="Tell me about your project, brand, or concept..."
           className={`${inputClass} resize-none`}
         />
       </div>

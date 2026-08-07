@@ -5,7 +5,7 @@ export default function Contact() {
     <section id="contact" className="py-32 px-6 md:px-10 border-t border-[rgba(240,235,224,0.08)]">
       <div className="max-w-7xl mx-auto">
         <p className="font-[family-name:var(--font-jost)] text-[10px] tracking-[0.4em] uppercase text-[#c4622d] mb-16">
-          05 — Contact
+          04 — Contact
         </p>
 
         <div className="grid md:grid-cols-2 gap-20 items-start">
@@ -17,9 +17,8 @@ export default function Contact() {
               <em className="italic text-[#c4622d]">Together</em>
             </h2>
             <p className="font-[family-name:var(--font-jost)] text-sm font-light text-[#8a8478] leading-relaxed mb-12 max-w-sm">
-              Open for bookings — fashion editorials, lookbooks, campaigns, runway,
-              and commercial work. Also accepting coaching enquiries for private
-              sessions and packages.
+              Open for bookings — fashion editorials, lookbooks, campaigns,
+              runway, commercial work, and UGC collaborations.
             </p>
 
             <div className="space-y-8">

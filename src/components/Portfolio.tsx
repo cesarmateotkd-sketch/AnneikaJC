@@ -55,29 +55,16 @@ export default async function Portfolio() {
             {instaPosts.map((p) => <InstaCard key={p.id} post={p} />)}
           </div>
         ) : (
-          /* Static portfolio grid — irregular, editorial feel */
-          <div className="grid grid-cols-2 md:grid-cols-12 gap-1 auto-rows-[280px] md:auto-rows-[340px]">
-            {/* Large left - spans 7 cols, 2 rows */}
-            <div className="group relative overflow-hidden bg-[#161616] col-span-2 md:col-span-7 md:row-span-2">
-              <Image src={LOCAL_IMAGES[0].src} alt={LOCAL_IMAGES[0].alt} fill className="object-cover object-top transition-transform duration-700 group-hover:scale-105" sizes="(max-width:768px) 100vw, 60vw" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            </div>
-            {/* Top right - 5 cols */}
-            <div className="group relative overflow-hidden bg-[#161616] col-span-1 md:col-span-5">
-              <Image src={LOCAL_IMAGES[1].src} alt={LOCAL_IMAGES[1].alt} fill className="object-cover object-top transition-transform duration-700 group-hover:scale-105" sizes="(max-width:768px) 50vw, 42vw" />
-            </div>
-            {/* Bottom right - 5 cols */}
-            <div className="group relative overflow-hidden bg-[#161616] col-span-1 md:col-span-5">
-              <Image src={LOCAL_IMAGES[2].src} alt={LOCAL_IMAGES[2].alt} fill className="object-cover object-center transition-transform duration-700 group-hover:scale-105" sizes="(max-width:768px) 50vw, 42vw" />
-            </div>
-            {/* Bottom full-width strip */}
-            <div className="group relative overflow-hidden bg-[#161616] col-span-2 md:col-span-12 h-[200px] md:h-[260px]">
-              <Image src={LOCAL_IMAGES[3].src} alt={LOCAL_IMAGES[3].alt} fill className="object-cover object-[center_20%] transition-transform duration-700 group-hover:scale-105" sizes="100vw" />
-              <div className="absolute inset-0 bg-gradient-to-r from-[#0c0c0c]/70 via-transparent to-[#0c0c0c]/70" />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <p className="font-[family-name:var(--font-cormorant)] text-3xl md:text-4xl italic text-white/90 tracking-wider">Live Runway</p>
-              </div>
-            </div>
+          /* Single editorial image */
+          <div className="group relative w-full h-[75vh] md:h-[90vh] overflow-hidden bg-[#161616]">
+            <Image
+              src="/images/port-2.jpg"
+              alt="Editorial — parking garage"
+              fill
+              className="object-cover object-top transition-transform duration-1000 group-hover:scale-105"
+              sizes="100vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0c0c0c]/50 via-transparent to-transparent" />
           </div>
         )}
 
