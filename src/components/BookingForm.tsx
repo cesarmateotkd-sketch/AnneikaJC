@@ -161,7 +161,7 @@ export default function BookingForm() {
       {/* Error */}
       {status === "error" && (
         <p className="font-[family-name:var(--font-jost)] text-[10px] tracking-[0.2em] text-red-400">
-          Something went wrong — please email hello@anneikajc.com directly.
+          Something went wrong — please email annneika45@gmail.com directly.
         </p>
       )}
 
