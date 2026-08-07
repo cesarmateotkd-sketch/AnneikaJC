@@ -1,20 +1,38 @@
 import Image from "next/image";
 import { fetchInstagramPosts, type InstagramPost } from "@/lib/instagram";
 
-const LOCAL_IMAGES = [
-  { src: "/images/port-1.jpg", alt: "Editorial — red Mercedes" },
-  { src: "/images/port-2.jpg", alt: "Fashion — garage editorial" },
-  { src: "/images/port-3.jpg", alt: "Runway — live show" },
-  { src: "/images/port-4.jpg", alt: "Creative — carnival costume" },
+const CLOUD = "https://res.cloudinary.com/zlsmzpdg/video/upload/q_auto";
+
+const MEDIA: ({ type: "image"; src: string; alt: string } | { type: "video"; id: string })[] = [
+  { type: "image", src: "/images/port-2.jpg", alt: "Editorial — parking garage" },
+  { type: "video", id: "copy_1F721C15-1897-4B0B-8EAD-9D70B68EA5C5_nittpb" },
+  { type: "video", id: "copy_1211A507-6602-423E-8AF3-61E757AC6CF6_jpokmm" },
+  { type: "video", id: "IMG_3332_hmoye4" },
+  { type: "video", id: "IMG_2164_aow7rb" },
+  { type: "video", id: "copy_04ECC168-4B41-4C18-B6E0-651A7B69CFBB_yowu1z" },
+  { type: "video", id: "copy_6648DB58-1728-4C94-B606-337D4019A349_r93ltb" },
 ];
 
 function InstaCard({ post }: { post: InstagramPost }) {
   const src = post.media_type === "VIDEO" ? post.thumbnail_url! : post.media_url;
   return (
-    <a href={post.permalink} target="_blank" rel="noopener noreferrer" className="group relative overflow-hidden bg-[#161616] block aspect-[3/4]">
-      <Image src={src} alt={post.caption?.slice(0, 60) ?? "Portfolio"} fill sizes="(max-width:768px) 50vw, 33vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
+    <a
+      href={post.permalink}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group relative overflow-hidden bg-[#161616] block aspect-[3/4]"
+    >
+      <Image
+        src={src}
+        alt={post.caption?.slice(0, 60) ?? "Portfolio"}
+        fill
+        sizes="(max-width:768px) 50vw, 33vw"
+        className="object-cover transition-transform duration-700 group-hover:scale-105"
+      />
       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-300 flex items-center justify-center">
-        <span className="font-[family-name:var(--font-jost)] text-[9px] tracking-[0.3em] uppercase text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">View on Instagram</span>
+        <span className="font-[family-name:var(--font-jost)] text-[9px] tracking-[0.3em] uppercase text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          View on Instagram
+        </span>
       </div>
     </a>
   );
@@ -55,16 +73,41 @@ export default async function Portfolio() {
             {instaPosts.map((p) => <InstaCard key={p.id} post={p} />)}
           </div>
         ) : (
-          /* Single editorial image */
-          <div className="group relative w-full h-[75vh] md:h-[90vh] overflow-hidden bg-[#161616]">
-            <Image
-              src="/images/port-2.jpg"
-              alt="Editorial — parking garage"
-              fill
-              className="object-cover object-top transition-transform duration-1000 group-hover:scale-105"
-              sizes="100vw"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0c0c0c]/50 via-transparent to-transparent" />
+          /* Mixed media grid — photo + videos */
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-1">
+            {MEDIA.map((item, i) =>
+              item.type === "image" ? (
+                <div
+                  key={i}
+                  className="group relative overflow-hidden bg-[#161616] aspect-[3/4]"
+                >
+                  <Image
+                    src={item.src}
+                    alt={item.alt}
+                    fill
+                    className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                    sizes="(max-width:768px) 50vw, 33vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                </div>
+              ) : (
+                <div
+                  key={i}
+                  className="group relative overflow-hidden bg-[#161616] aspect-[3/4]"
+                >
+                  <video
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  >
+                    <source src={`${CLOUD}/${item.id}.mp4`} type="video/mp4" />
+                  </video>
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-500" />
+                </div>
+              )
+            )}
           </div>
         )}
 
