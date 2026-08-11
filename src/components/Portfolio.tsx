@@ -1,10 +1,40 @@
 import Image from "next/image";
 import { fetchInstagramPosts, type InstagramPost } from "@/lib/instagram";
 
-const CLOUD = "https://res.cloudinary.com/zlsmzpdg/video/upload/q_auto";
+const CLD_IMG = "https://res.cloudinary.com/zlsmzpdg/image/upload/q_auto,f_auto";
+const CLD_VID = "https://res.cloudinary.com/zlsmzpdg/video/upload/q_auto";
 
-const MEDIA: ({ type: "image"; src: string; alt: string } | { type: "video"; id: string })[] = [
-  { type: "image", src: "/images/port-2.jpg", alt: "Editorial — parking garage" },
+type MediaItem =
+  | { type: "image"; src: string }
+  | { type: "video"; id: string };
+
+const MEDIA: MediaItem[] = [
+  // Local editorial photo
+  { type: "image", src: "/images/port-2.jpg" },
+  // Cloudinary images
+  { type: "image", src: `${CLD_IMG}/v1786428091/Black_and_White_Minimalist_Fashion_Model_Comp_Card_-_2_ii1qxx.png` },
+  { type: "image", src: `${CLD_IMG}/v1786428086/IMG_1537_eymjxe.jpg` },
+  { type: "image", src: `${CLD_IMG}/v1786428080/IMG_6978_r5d2lt.jpg` },
+  { type: "image", src: `${CLD_IMG}/v1786428075/19864146-6EB5-4AB0-BA94-9D72AC2274C3_ynijoz.jpg` },
+  { type: "image", src: `${CLD_IMG}/v1786428075/8FC48DE3-FE91-41CD-BBA5-A718FB32AFCA_lwknhk.jpg` },
+  { type: "image", src: `${CLD_IMG}/v1786428074/FE920BE9-C448-4B51-87B0-F45A7FD0B963_vcwgde.jpg` },
+  { type: "image", src: `${CLD_IMG}/v1786428074/8B6D53E5-BB2C-481D-A82C-D8A041072737_bteqro.jpg` },
+  { type: "image", src: `${CLD_IMG}/v1786428069/IMG_1738_gyryai.jpg` },
+  { type: "image", src: `${CLD_IMG}/v1786428066/F01768C9-B3C3-4DF8-8662-63E6C9309381_czmcnp.jpg` },
+  { type: "image", src: `${CLD_IMG}/v1786428065/544C8738-00CD-4EB0-B9DB-C766019B0E5A_sabtvu.jpg` },
+  { type: "image", src: `${CLD_IMG}/v1786428063/B19B9376-FB37-42A7-98DD-5943FFCD9D27_bthnnp.jpg` },
+  { type: "image", src: `${CLD_IMG}/v1786428061/CD7B60BD-F8B5-444D-AF07-FBF5CCEAB0E6_mofzzx.jpg` },
+  { type: "image", src: `${CLD_IMG}/v1786428059/45b1fd93-a866-4126-98a6-d434bd803c15_b76htj.jpg` },
+  { type: "image", src: `${CLD_IMG}/v1786428059/d7283f44-d7db-4e31-b184-238080fe6f11_qv4gyz.jpg` },
+  { type: "image", src: `${CLD_IMG}/v1786428047/IMG_0408_pirgdn.jpg` },
+  { type: "image", src: `${CLD_IMG}/v1786428043/4350e05c-ca14-423f-b245-442ba247938f_e8yed5.jpg` },
+  { type: "image", src: `${CLD_IMG}/v1786428042/IMG_6346_ltckeh.jpg` },
+  { type: "image", src: `${CLD_IMG}/v1786428042/E13C1BDE-29E5-4370-ABDE-41D25D49984B_lhlexv.jpg` },
+  { type: "image", src: `${CLD_IMG}/v1786428042/5CF06567-B9DD-4815-AB40-ED167D509346_a5ytt0.jpg` },
+  { type: "image", src: `${CLD_IMG}/v1786428037/7a7ebba3-53d5-4e99-b105-7d7377a66e65_ncrzap.jpg` },
+  { type: "image", src: `${CLD_IMG}/v1786428031/1043E21B-4A60-4EDF-B807-F68626E23FE9_u13seg.jpg` },
+  { type: "image", src: `${CLD_IMG}/v1786428030/e2c8758c-44c9-4dce-a5b1-64d7f6bd2730_kyvrph.jpg` },
+  // Videos
   { type: "video", id: "copy_1F721C15-1897-4B0B-8EAD-9D70B68EA5C5_nittpb" },
   { type: "video", id: "copy_1211A507-6602-423E-8AF3-61E757AC6CF6_jpokmm" },
   { type: "video", id: "IMG_3332_hmoye4" },
@@ -68,33 +98,25 @@ export default async function Portfolio() {
         </div>
 
         {hasInsta ? (
-          /* Instagram grid */
           <div className="grid grid-cols-2 md:grid-cols-3 gap-1">
             {instaPosts.map((p) => <InstaCard key={p.id} post={p} />)}
           </div>
         ) : (
-          /* Mixed media grid — photo + videos */
           <div className="grid grid-cols-2 md:grid-cols-3 gap-1">
             {MEDIA.map((item, i) =>
               item.type === "image" ? (
-                <div
-                  key={i}
-                  className="group relative overflow-hidden bg-[#161616] aspect-[3/4]"
-                >
+                <div key={i} className="group relative overflow-hidden bg-[#161616] aspect-[3/4]">
                   <Image
                     src={item.src}
-                    alt={item.alt}
+                    alt="Portfolio"
                     fill
                     className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
                     sizes="(max-width:768px) 50vw, 33vw"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-500" />
                 </div>
               ) : (
-                <div
-                  key={i}
-                  className="group relative overflow-hidden bg-[#161616] aspect-[3/4]"
-                >
+                <div key={i} className="group relative overflow-hidden bg-[#161616] aspect-[3/4]">
                   <video
                     autoPlay
                     muted
@@ -102,7 +124,7 @@ export default async function Portfolio() {
                     playsInline
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   >
-                    <source src={`${CLOUD}/${item.id}.mp4`} type="video/mp4" />
+                    <source src={`${CLD_VID}/${item.id}.mp4`} type="video/mp4" />
                   </video>
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-500" />
                 </div>
@@ -111,7 +133,6 @@ export default async function Portfolio() {
           </div>
         )}
 
-        {/* Instagram CTA */}
         <div className="mt-10 text-center">
           <a
             href="https://www.instagram.com/annneika.jc"
