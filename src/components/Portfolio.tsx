@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { fetchInstagramPosts, type InstagramPost } from "@/lib/instagram";
 
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 const CLD_IMG = "https://res.cloudinary.com/zlsmzpdg/image/upload/q_auto,f_auto";
 const CLD_VID = "https://res.cloudinary.com/zlsmzpdg/video/upload/q_auto";
 
@@ -10,7 +11,7 @@ type MediaItem =
 
 const MEDIA: MediaItem[] = [
   // Local editorial photo
-  { type: "image", src: "/images/port-2.jpg" },
+  { type: "image", src: `${BASE}/images/port-2.jpg` },
   // Cloudinary images
   { type: "image", src: `${CLD_IMG}/v1786428091/Black_and_White_Minimalist_Fashion_Model_Comp_Card_-_2_ii1qxx.png` },
   { type: "image", src: `${CLD_IMG}/v1786428086/IMG_1537_eymjxe.jpg` },
